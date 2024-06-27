@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강화 시뮬레이터</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .stats {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0052a3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+        }
+        .failure {
+            color: red;
+        }
+        .result-image {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>강화 시뮬레이터</h1>
+        <p>아이템을 강화하여 레벨을 올려보세요!</p>
+        <div class="stats">
+            <p>현재 레벨: <span id="current-level">1</span></p>
+        </div>
+        <button onclick="enhanceItem()">강화하기</button>
+        <div class="result" id="result-message"></div>
+        <div class="result-image" id="image-container" style="display: none;">
+            <img src="호날두.png" alt="강화 결과는?!" id="result-image">
+        </div>
+    </div>
+
+    <script>
+        let currentLevel = 1;
+
+        function enhanceItem() {
+            // 강화 성공 확률을 설정합니다 (예: 70% 성공률)
+            const successRate = 0.22;
+
+            // 랜덤 값 생성 (0 ~ 1)
+            const randomValue = Math.random();
+
+            if (randomValue < successRate) {
+                // 성공한 경우
+                currentLevel++;
+                document.getElementById('result-message').innerHTML = `강화 성공! 레벨이 ${currentLevel}로 올라갔습니다. <span class="success">🎉</span>`;
+                document.getElementById('image-container').style.display = 'block';
+                document.getElementById('result-image').src = 'success.jpg'; // 성공 이미지 파일 경로 설정
+            } else {
+                // 실패한 경우
+                document.getElementById('result-message').innerHTML = `강화 실패... 현재 레벨은 ${currentLevel}입니다. <span class="failure">😢</span>`;
+                document.getElementById('image-container').style.display = 'block';
+                document.getElementById('result-image').src = 'failure.jpg'; // 실패 이미지 파일 경로 설정
+            }
+
+            // 현재 레벨 업데이트
+            document.getElementById('current-level').textContent = currentLevel;
+        }
+    </script>
+</body>
+</html>
